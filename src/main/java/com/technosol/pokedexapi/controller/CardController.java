@@ -20,10 +20,15 @@ public class CardController {
     private final CardService cardService;
 
     // ===== GET : Récupérer toutes les cartes =====
-    // GET http://localhost:8080/api/cards
+    // GET http://localhost:8080/api/cards?page=0&size=20&sortBy=addedAt&sortDir=desc
     @GetMapping
-    public ResponseEntity<List<Card>> getAllCards() {
-        return ResponseEntity.ok(cardService.getAllCards());
+    public ResponseEntity<org.springframework.data.domain.Page<Card>> getAllCards(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "20") int size,
+            @RequestParam(defaultValue = "addedAt") String sortBy,
+            @RequestParam(defaultValue = "desc") String sortDir
+    ) {
+        return ResponseEntity.ok(cardService.getAllCards(page, size, sortBy, sortDir));
     }
 
     // ===== GET : Récupérer une carte par ID =====
