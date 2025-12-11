@@ -13,8 +13,6 @@ import java.util.Optional;
 @Repository
 public interface CardRepository extends JpaRepository<Card, Long> {
 
-    <Rarity> List<Card> findByRarity(Rarity rarity);
-
     // JpaRepository fournit déjà : save(), findById(), findAll(), delete()...
 
     // ===== MÉTHODES GÉNÉRÉES AUTOMATIQUEMENT =====
@@ -48,6 +46,6 @@ public interface CardRepository extends JpaRepository<Card, Long> {
     @Query("SELECT c FROM Card c WHERE c.owner.id = :ownerId AND :type MEMBER OF c.types")
     List<Card> findByOwnerIdAndType(Long ownerId, String type);
 
-    Optional<Object> findByPokeApiId(Integer pokeApiId);
+    Optional<Card> findByPokeApiId(Integer pokeApiId);
 }
 

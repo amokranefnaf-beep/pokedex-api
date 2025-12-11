@@ -32,4 +32,9 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "card_id")
     )
     private List<Card> wishlist;
+
+    @PrePersist
+    protected void onCreate() {
+        this.createdAt = LocalDateTime.now();
+    }
 }

@@ -108,13 +108,18 @@ public class CardService {
      * Ajoute un Pokémon par son nom
      */
     public Card addPokemonByName(String name) {
+        // Récupère les données depuis PokéAPI
         PokemonApiResponse pokemon = pokeApiService.getPokemonByName(name)
                 .orElseThrow(() -> new RuntimeException("Pokémon '" + name + "' non trouvé"));
 
+        // Vérifie qu'on ne l'a pas déjà
+        if (cardRepository.findByPokeApiId(pokemon.getId()).isPresent()) {
+            throw new RuntimeException("Tu possèdes déjà ce Pokémon !");
+        }
+
+        // Convertit en Card et sauvegarde
         Card card = pokeApiService.convertToCard(pokemon);
         return cardRepository.save(card);
-
-
     }
 
 }
