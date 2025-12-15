@@ -13,6 +13,7 @@ import java.util.Optional;
 @Repository
 public interface CardRepository extends JpaRepository<Card, Long> {
 
+
     // JpaRepository fournit déjà : save(), findById(), findAll(), delete()...
 
     // ===== MÉTHODES GÉNÉRÉES AUTOMATIQUEMENT =====
@@ -45,6 +46,7 @@ public interface CardRepository extends JpaRepository<Card, Long> {
     // Quand le nom de méthode ne suffit pas, on écrit la requête
     @Query("SELECT c FROM Card c WHERE c.owner.id = :ownerId AND :type MEMBER OF c.types")
     List<Card> findByOwnerIdAndType(Long ownerId, String type);
+
 
     Optional<Card> findByPokeApiId(Integer pokeApiId);
 }

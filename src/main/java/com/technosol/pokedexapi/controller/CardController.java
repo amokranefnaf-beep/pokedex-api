@@ -1,10 +1,7 @@
 package com.technosol.pokedexapi.controller;
 
-import com.technosol.pokedexapi.dtoapi.CardRequest;
-import com.technosol.pokedexapi.dtoapi.DTO.CardResponse;
 import com.technosol.pokedexapi.entity.Card;
 import com.technosol.pokedexapi.service.CardService;
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -78,9 +75,17 @@ public class CardController {
     // ===== DELETE : Supprimer une carte =====
     // DELETE http://localhost:8080/api/cards/1
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteCard(@PathVariable Long id) {
+    public ResponseEntity<List<Card>> deleteCard(@PathVariable Long id) {
         cardService.deleteCard(id);
         return ResponseEntity.noContent().build();  // 204 No Content
 
+    // GET /api/cards/favorites
+    @GetMapping("/favorites") ResponseEntity<List<Card>> getFavorites ;  {
+
+            List<Card> favorites = cardService.getFavorites();
+
+            return ResponseEntity.ok(favorites);
+
+        }
     }
 }
