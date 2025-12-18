@@ -1,11 +1,9 @@
 package com.technosol.pokedexapi.service;
 
 
-import com.technosol.pokedexapi.dtoapi.CardRequest;
 import com.technosol.pokedexapi.dtoapi.DTO.PokemonApiResponse;
 import com.technosol.pokedexapi.entity.Card;
 import com.technosol.pokedexapi.repository.CardRepository;
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
