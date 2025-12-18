@@ -5,7 +5,9 @@ import com.technosol.pokedexapi.entity.Card;
 import com.technosol.pokedexapi.entity.Rarity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Repository;
+import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.List;
 import java.util.Optional;
@@ -13,7 +15,18 @@ import java.util.Optional;
 @Repository
 public interface CardRepository extends JpaRepository<Card, Long> {
 
+// GET /api/cards/all - Toutes les cartes
 
+    @GetMapping("/all")
+
+    public default ResponseEntity<List<Card>> getAllCards() {
+
+        CardRepository cardService = null;
+        List<Card> cards = cardService.getAllCards().getBody();
+
+        return ResponseEntity.ok(cards);
+
+    }
     // JpaRepository fournit déjà : save(), findById(), findAll(), delete()...
 
     // ===== MÉTHODES GÉNÉRÉES AUTOMATIQUEMENT =====
@@ -46,6 +59,7 @@ public interface CardRepository extends JpaRepository<Card, Long> {
     // Quand le nom de méthode ne suffit pas, on écrit la requête
     @Query("SELECT c FROM Card c WHERE c.owner.id = :ownerId AND :type MEMBER OF c.types")
     List<Card> findByOwnerIdAndType(Long ownerId, String type);
+
 
 
     Optional<Card> findByPokeApiId(Integer pokeApiId);
