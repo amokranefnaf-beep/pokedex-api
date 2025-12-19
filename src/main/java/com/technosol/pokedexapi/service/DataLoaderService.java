@@ -19,45 +19,22 @@ public class DataLoaderService implements CommandLineRunner {
     private final CardRepository cardRepository;
     private final PokeApiService pokeApiService;
 
-    @Value("${app.init.pokemon-count:30}")
+    @Value("${app.init.pokemon-count:150}")
     private int pokemonCount;
 
     @Value("${app.init.enabled:true}")
     private boolean enabled;
 
-    // Liste des 30 Pokémon les plus populaires de Gen 1
-    private static final int[] POPULAR_POKEMON = {
-        1,   // Bulbasaur
-        4,   // Charmander
-        7,   // Squirtle
-        25,  // Pikachu
-        39,  // Jigglypuff
-        54,  // Psyduck
-        63,  // Abra
-        94,  // Gengar
-        131, // Lapras
-        133, // Eevee
-        143, // Snorlax
-        144, // Articuno
-        145, // Zapdos
-        146, // Moltres
-        150, // Mewtwo
-        151, // Mew
-        6,   // Charizard
-        9,   // Blastoise
-        3,   // Venusaur
-        26,  // Raichu
-        68,  // Machamp
-        130, // Gyarados
-        149, // Dragonite
-        65,  // Alakazam
-        59,  // Arcanine
-        95,  // Onix
-        106, // Hitmonlee
-        107, // Hitmonchan
-        112, // Rhydon
-        115  // Kangaskhan
-    };
+    // Liste des 150 premiers Pokémon
+    private static final int[] POPULAR_POKEMON = generatePokemonIds(150);
+
+    private static int[] generatePokemonIds(int count) {
+        int[] ids = new int[count];
+        for (int i = 0; i < count; i++) {
+            ids[i] = i + 1;
+        }
+        return ids;
+    }
 
     @Override
     public void run(String... args) {
